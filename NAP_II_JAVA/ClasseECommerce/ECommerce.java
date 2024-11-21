@@ -7,6 +7,7 @@ public class ECommerce {
     private List<Pedido> pedidos;
     private List<Transportadora> transportadoras;
 
+    // Construtor não padrão
     public ECommerce() {
         this.produtos = new ArrayList<>();
         this.clientes = new ArrayList<>();
@@ -15,25 +16,30 @@ public class ECommerce {
     }
 
     // Getters
-    public List<Produto> getProdutos() { return produtos; }
-    public List<Cliente> getClientes() { return clientes; }
-    public List<Pedido> getPedidos() { return pedidos; }
-    public List<Transportadora> getTransportadoras() { return transportadoras; }
-
-    // Métodos adicionais para adicionar novos itens ao ECommerce
-    public void adicionarProduto(Produto produto) {
-        this.produtos.add(produto);
+    public List<Produto> getProdutos() {
+        return produtos;
     }
 
-    public void adicionarCliente(Cliente cliente) {
-        this.clientes.add(cliente);
+    public List<Cliente> getClientes() {
+        return clientes;
     }
 
-    public void adicionarPedido(Pedido pedido) {
-        this.pedidos.add(pedido);
+    public List<Pedido> getPedidos() {
+        return pedidos;
     }
 
-    public void adicionarTransportadora(Transportadora transportadora) {
-        this.transportadoras.add(transportadora);
+    public List<Transportadora> getTransportadoras() {
+        return transportadoras;
+    }
+
+    // Sobrescrevendo toString
+    @Override
+    public String toString() {
+        return "ECommerce{" +
+                "produtos=" + produtos +
+                ", clientes=" + clientes +
+                ", pedidos=" + pedidos +
+                ", transportadoras=" + transportadoras +
+                '}';
     }
 }

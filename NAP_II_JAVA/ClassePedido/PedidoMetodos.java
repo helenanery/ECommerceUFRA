@@ -1,8 +1,32 @@
 public class PedidoMetodos {
 
+    // Método para calcular o total do pedido
+    public static void calcularTotal(Pedido pedido) {
+        pedido.subtotal = 0.0;
+        for (Item item : pedido.getListaItens()) {
+            pedido.subtotal += item.getSubtotal();
+        }
+        pedido.total = pedido.subtotal + pedido.getFrete();
+    }
+
+    // Método para calcular o frete do pedido
+    public static void calcularFrete(Pedido pedido) {
+        if (pedido.getTransportadora() != null) {
+            pedido.frete = pedido.getTransportadora().calcularPrecoFrete(pedido);
+        } else {
+            pedido.frete = 0.0;  // Se não houver transportadora, o frete é zero
+        }
+    }
+
+    // Método para setar a transportadora e recalcular o frete
+    public static void setTransportadora(Pedido pedido, Transportadora transportadora) {
+        pedido.transportadora = transportadora;
+        calcularFrete(pedido);  // Recalcula o frete
+    }
+
     // Método para adicionar produto ao pedido
     public static void adicionar(Pedido pedido, Produto produto) {
-        adicionar(pedido, 1, produto); // Chama o método sobrecarregado com quantidade 1
+        adicionar(pedido, 1, produto);  // Chama o método sobrecarregado com quantidade 1
     }
 
     // Método sobrecarregado para adicionar produto com quantidade
@@ -22,8 +46,8 @@ public class PedidoMetodos {
         }
 
         // Atualiza o total, subtotal e frete após a adição
-        pedido.calcularTotal();
-        pedido.calcularFrete();
+        calcularTotal(pedido);
+        calcularFrete(pedido);
     }
 
     // Método para remover produto do pedido
@@ -44,7 +68,7 @@ public class PedidoMetodos {
         }
 
         // Atualiza total e frete após a remoção
-        pedido.calcularTotal();
-        pedido.calcularFrete();
+        calcularTotal(pedido);
+        calcularFrete(pedido);
     }
 }

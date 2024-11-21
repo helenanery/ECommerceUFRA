@@ -2,32 +2,32 @@
 
 public class Main {
     public static void main(String[] args) {
-        // Criando um e-commerce
+        // Criando instâncias
+        Produto produto1 = new Produto("Laptop", 2000.0, 0.3, 2.5);
+        Produto produto2 = new Produto("Smartphone", 1500.0, 0.2, 0.5);
+        Cliente cliente = new Cliente("Ana Souza", "ana@email.com");
+        Transportadora transportadora = new Transportadora("Logistica Rápida", 20.0);
+
+        // Criando e-commerce
         ECommerce ecommerce = new ECommerce();
 
-        // Criando produtos
-        Produto produto1 = new Produto("Livro de Java", 50.00, 0.5, 0.3);
-        Produto produto2 = new Produto("Camisa UFRA", 30.00, 0.2, 0.2);
+        // Cadastrando cliente
+        ECommerceMetodos.cadastrar(ecommerce, cliente);
 
         // Adicionando produtos ao e-commerce
-        MetodosECommerce.comprarProduto(ecommerce, produto1);
-        MetodosECommerce.comprarProduto(ecommerce, produto2);
+        ECommerceMetodos.comprar(ecommerce, produto1);
+        ECommerceMetodos.comprar(ecommerce, produto2);
 
-        // Criando cliente
-        Cliente cliente = new Cliente("João", "joao@ufra.edu.br");
-
-        // Cadastrando cliente
-        MetodosECommerce.cadastrarCliente(ecommerce, cliente);
+        // Credenciando transportadora
+        ECommerceMetodos.credenciar(ecommerce, transportadora);
 
         // Criando pedido
-        Pedido pedido = new Pedido("2024-11-21 12:00", 80.00, 10.00, 90.00, cliente, new Endereco("Casa", "Rua XYZ", 123, "Apto 5"), new Transportadora("Transportadora A", 2.0, 1.0, 5), List.of(new Item(1, produto1), new Item(1, produto2)));
+        Pedido pedido = new Pedido(3500.0, cliente, List.of(new Item(1, produto1), new Item(1, produto2)));
 
-        // Pagando o pedido (sem voucher)
-        boolean pagamentoOk = MetodosECommerce.pagar(ecommerce, pedido, 90.00);
-        System.out.println("Pagamento realizado com sucesso? " + pagamentoOk);
+        // Realizando pagamento sem voucher
+        ECommerceMetodos.pagar(ecommerce, pedido, 3500.0);
 
-        // Pagando com voucher
-        pagamentoOk = MetodosECommerce.pagar(ecommerce, pedido, 90.00, "DESCONTO10");
-        System.out.println("Pagamento realizado com sucesso (com voucher)? " + pagamentoOk);
+        // Realizando pagamento com voucher
+        ECommerceMetodos.pagar(ecommerce, pedido, 3150.0, "DESCONTO10");
     }
 }
